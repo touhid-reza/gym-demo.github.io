@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronForge Gym | Shape Your Perfect Body</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #ff5200; /* Vibrant Orange */
+            --primary-hover: #e04800;
+            --dark-bg: #111111;
+            --card-bg: #1e1e1e;
+            --text-light: #ffffff;
+            --text-gray: #b0b0b0;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header span {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background-color: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            clip-path: none;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+        }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(17, 17, 17, 0.95);
+            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .hero-content h3 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        /* --- PROGRAMS SECTION --- */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .program-card {
+            background-color: var(--card-bg);
+            overflow: hidden;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .program-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .program-content {
+            padding: 30px;
+        }
+
+        .program-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .program-content p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .program-icon {
+            position: absolute;
+            top: 220px;
+            right: 20px;
+            background: var(--primary);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* --- BENEFITS SECTION --- */
+        #benefits {
+            background-color: #0a0a0a;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .benefit-item {
+            padding: 30px;
+            border: 1px solid #333;
+            transition: var(--transition);
+        }
+
+        .benefit-item:hover {
+            border-color: var(--primary);
+            background: #151515;
+        }
+
+        .benefit-item h3 {
+            margin: 20px 0 15px;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+        }
+
+        .benefit-item p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* --- TRAINERS --- */
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .trainer-card {
+            background-color: var(--card-bg);
+            text-align: center;
+        }
+
+        .trainer-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: var(--transition);
+        }
+
+        .trainer-card:hover .trainer-img {
+            filter: grayscale(0%);
+        }
+
+        .trainer-info {
+            padding: 25px;
+        }
+
+        .trainer-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .trainer-info span {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* --- PRICING --- */
+        #pricing {
+            background-color: #0a0a0a;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background-color: var(--card-bg);
+            padding: 50px 30px;
+            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+        }
+
+        .pricing-card.featured {
+            background-color: #252525;
+            transform: scale(1.05);
+            border: 1px solid var(--primary);
+            z-index: 2;
+        }
+
+        .pricing-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-family: var(--font-heading);
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        .features-list {
+            margin-bottom: 40px;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            color: var(--text-gray);
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .client-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        /* --- CONTACT (UPDATED) --- */
+        #contact {
+            background: var(--dark-bg);
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        /* Left Side */
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* Right Side (Form) */
+        .contact-form-wrapper {
+            flex: 1;
+            min-width: 300px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-right: 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+        }
+
+        .contact-text h4 {
+            margin-bottom: 5px;
+            font-family: var(--font-heading);
+        }
+        
+        .contact-text p {
+            color: var(--text-gray);
+        }
+
+        /* Contact Buttons */
+        .contact-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn-social {
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            font-weight: bold;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .whatsapp-btn {
+            background-color: #41664f;
+            color: white;
+        }
+        .whatsapp-btn:hover { background-color: #137c70; }
+
+        .email-btn {
+            background-color: var(--primary);
+            color: white;
+        }
+        .email-btn:hover { background-color: var(--primary-hover); }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: #333;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 5px;
+            font-family: var(--font-body);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        textarea.form-control {
+            resize: vertical;
+            height: 120px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .submit-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        footer {
+            background: #000;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3rem; }
+            .nav-links { display: none; } 
+            .navbar { padding: 15px 0; }
+            
+            .pricing-card.featured { transform: scale(1); }
+            
+            #contact { background: #111; }
+            .contact-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Iron<span>Forge</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#benefits">Why Us</a></li>
+                <li><a href="#trainers">Trainers</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonials">Stories</a></li>
+                <li><a href="#contact" style="color:var(--primary);">Join Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h3>Welcome to IronForge</h3>
+            <h1>Shape Your<br>Perfect Body</h1>
+            <a href="#pricing" class="btn">Start Your Journey</a>
+        </div>
+    </section>
+
+    <section id="benefits" class="section-padding">
+        <div class="container">
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div style="font-size: 2rem; color: var(--primary);">💪</div>
+                    <h3>Progression</h3>
+                    <p>Advanced tracking methods to ensure you are constantly moving forward.</p>
+                </div>
+                <div class="benefit-item">
+                    <div style="font-size: 2rem; color: var(--primary);">🔥</div>
+                    <h3>Fat Loss</h3>
+                    <p>High intensity interval training designed to burn calories fast.</p>
+                </div>
+                <div class="benefit-item">
+                    <div style="font-size: 2rem; color: var(--primary);">🥗</div>
+                    <h3>Nutrition</h3>
+                    <p>Personalized diet plans to fuel your workouts and recovery.</p>
+                </div>
+                <div class="benefit-item">
+                    <div style="font-size: 2rem; color: var(--primary);">❤️</div>
+                    <h3>Confidence</h3>
+                    <p>Build mental strength alongside physical power.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span>Our Classes</span>
+                <h2>What We Offer</h2>
+            </div>
+
+            <div class="programs-grid">
+                <div class="program-card">
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Body Building" class="program-img">
+                    <div class="program-icon">01</div>
+                    <div class="program-content">
+                        <h3>Body Building</h3>
+                        <p>Focus on hypertrophy and strength with our specialized weight lifting curriculum.</p>
+                        <a href="#contact" style="color: var(--primary); font-weight: 700;">Join Class &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cardio" class="program-img">
+                    <div class="program-icon">02</div>
+                    <div class="program-content">
+                        <h3>Cardio & HIIT</h3>
+                        <p>Push your endurance limits with high-energy circuit training and running.</p>
+                        <a href="#contact" style="color: var(--primary); font-weight: 700;">Join Class &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Yoga" class="program-img">
+                    <div class="program-icon">03</div>
+                    <div class="program-content">
+                        <h3>Power Yoga</h3>
+                        <p>Enhance flexibility, core strength, and mental focus with our yoga sessions.</p>
+                        <a href="#contact" style="color: var(--primary); font-weight: 700;">Join Class &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trainers" class="section-padding" style="background-color: #0a0a0a;">
+        <div class="container">
+            <div class="section-header">
+                <span>Team Members</span>
+                <h2>Expert Trainers</h2>
+            </div>
+            
+            <div class="trainers-grid">
+                <div class="trainer-card">
+                    <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Trainer 1" class="trainer-img">
+                    <div class="trainer-info">
+                        <h3>Mark Hunter</h3>
+                        <span>Strength Coach</span>
+                    </div>
+                </div>
+                
+                <div class="trainer-card">
+                    <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Trainer 2" class="trainer-img">
+                    <div class="trainer-info">
+                        <h3>Sarah Jenkins</h3>
+                        <span>Cardio Expert</span>
+                    </div>
+                </div>
+
+                <div class="trainer-card">
+                    <img src="https://structure.com.pk/wp-content/uploads/2023/08/4-3.jpg" alt="Trainer 3" class="trainer-img">
+                    <div class="trainer-info">
+                        <h3>Mike Ross</h3>
+                        <span>Crossfit Pro</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span>Our Plans</span>
+                <h2>Choose Your Pricing</h2>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Monthly</h3>
+                    <div class="price">$39<span>/mo</span></div>
+                    <ul class="features-list">
+                        <li>Unlimited Gym Access</li>
+                        <li>2 Group Classes/Week</li>
+                        <li>Free Drinking Water</li>
+                        <li>Locker Access</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Select Plan</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <span style="position:absolute; top:0; right:0; background:var(--primary); padding: 5px 15px; font-size:0.8rem; font-weight:bold;">BEST VALUE</span>
+                    <h3>6 Month</h3>
+                    <div class="price">$199<span>/6mo</span></div>
+                    <ul class="features-list">
+                        <li>Unlimited Gym Access</li>
+                        <li>Unlimited Group Classes</li>
+                        <li>1 Personal Training Session</li>
+                        <li>Diet Plan Included</li>
+                    </ul>
+                    <a href="#contact" class="btn">Select Plan</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Yearly</h3>
+                    <div class="price">$350<span>/yr</span></div>
+                    <ul class="features-list">
+                        <li>All Platinum Features</li>
+                        <li>5 Personal Training Sessions</li>
+                        <li>Access to Sauna</li>
+                        <li>Free Merchandise</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Select Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span>Testimonials</span>
+                <h2>Success Stories</h2>
+            </div>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="quote">"IronForge completely changed my life. The trainers are knowledgeable and the environment is super motivating. I lost 20lbs in 3 months!"</p>
+                    <div class="client-info">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="User" class="client-img">
+                        <div>
+                            <h4>James Doe</h4>
+                            <span style="color:var(--text-gray); font-size:0.8rem;">Member since 2022</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="quote">"Best gym in the city. The equipment is top-notch and always clean. I love the yoga classes on weekends!"</p>
+                    <div class="client-info">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="User" class="client-img">
+                        <div>
+                            <h4>Emily Blunt</h4>
+                            <span style="color:var(--text-gray); font-size:0.8rem;">Member since 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="contact" class="section-padding">
+        <div class="container">
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div style="margin-bottom: 40px;">
+                        <span style="color: var(--primary); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem;">Get In Touch</span>
+                        <h2 style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; text-transform: uppercase; line-height: 1.1; margin-top: 10px;">Visit Us Today</h2>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon-box">📍</div>
+                        <div class="contact-text">
+                            <h4>Location</h4>
+                            <p>123 Iron Street, Muscle City, FL 33000</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon-box">✉️</div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>contact@ironforgegym.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon-box">🕒</div>
+                        <div class="contact-text">
+                            <h4>Working Hours</h4>
+                            <p>Mon-Fri: 5am - 11pm<br>Sat-Sun: 7am - 8pm</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-buttons">
+                        <a href="https://wa.me/1234567890" target="_blank" class="contact-btn-social whatsapp-btn">
+                            <span style="margin-right: 10px; font-size: 1.2rem;">💬</span> WhatsApp
+                        </a>
+                        
+                        <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSDZBKztNDmRcVQVprrtwNhNgpCgFHGbBmLXNmFhBGzhpRKZtpQcWHRKWkHRRRVNFSvfpZsv" class="contact-btn-social email-btn">
+                            <span style="margin-right: 10px; font-size: 1.2rem;">✉️</span> Email Now
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Your Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Message or Goal" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 IronForge Gym. All Rights Reserved.
+            <b>created by Touhid Reza</b>
+        </p>
+    </footer>
+
+</body>
+</html>
